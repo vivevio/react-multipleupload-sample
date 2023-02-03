@@ -63,13 +63,15 @@ function App() {
     if(['video_internal'].indexOf(formData.type) >= 0) data.append('file', mediaFile)
 
     // if(['media'].indexOf(formData.type) >= 0) data.append('file', mediaFile)
-
+    var filenameList = [];
     if(['media'].indexOf(formData.type) >= 0) {
       Array.from(mediaFile).forEach((file, index) => {
-        data.append('file', file)
+        filenameList.push(file.name)
+        data.append(file.name, file)
       })
     }
 
+    data.append('fileList', filenameList)
     let reqOptions = {
         url: API_HOST,
         method: "post",
